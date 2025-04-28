@@ -7,6 +7,18 @@ import java.util.*;
 public class AdminService
 {
 
+	public void createAdmin(Admin admin)
+	{
+		Database.adminList.add(admin);
+		System.out.println("Admin created successfully...");
+	}
+
+	public void createCustomer(Customer customer)
+	{
+		Database.customerList.add(customer);
+		System.out.println("Customer created successfully");
+	}
+
 	public boolean login(String uName,String uPwd)
 	{
 		for(User admin:Database.adminList)
@@ -49,14 +61,6 @@ public class AdminService
 		}
 	}
 
-	
-
-
-
-
-
-
-
 
 
 	public void createScreen(Screen screen)
@@ -73,16 +77,10 @@ public class AdminService
 	
 	public void updateScreen(Screen screen)
 	{
-		AdminService adminService=new AdminService();
-		adminService.createScreen(screen);
+		createScreen(screen);
 	}
 
-	public void viewScreen()
-	{
-		ScreenController controller=new ScreenController();
-		controller.printScreenDetails();
-	}
-
+	
 	public boolean checkMovie(int id)
 	{
 		for(Movie movie:Database.movieList)
@@ -148,12 +146,115 @@ public class AdminService
 			{
 				System.out.println("------------------------------------------------------------");
 				controller.printMovieDetails(movie);
+				System.out.println("------------------------------------------------------------");
 			}
 			System.out.println("All the available movie details would be displayed successfully...");
 		}
 		else
 		{
 			System.out.println("Oops! There is no movie is available in theatre....");
+		}
+	}
+
+	public void viewScreen()
+	{
+		if(Database.screenList.size()!=0)
+		{
+			ScreenController screenController=new ScreenController();
+			for(Screen screen : Database.screenList)
+			{
+				
+				screenController.printScreenDetails(screen);
+			}
+			System.out.println("All the available screen details would be displayed successfully...");
+		}
+		else
+		{
+			System.out.println("Oops! There is no screen is available in theatre....");
+		}
+	}
+
+	public void viewAdmin()
+	{
+		if(Database.adminList.size()!=0)
+		{
+			AdminController adminController=new AdminController();
+			for(User user : Database.adminList)
+			{
+				
+				adminController.printAdminDetails(user);
+			}
+			System.out.println("All the available admin details would be displayed successfully...");
+		}
+		else
+		{
+			System.out.println("Oops! There is no admin is available now....");
+		}
+	}
+
+	public void viewCustomer()
+	{
+		if(Database.customerList.size()!=0)
+		{
+			AdminController adminController=new AdminController();
+			for(User user : Database.customerList)
+			{
+				
+				adminController.printCustomerDetails(user);
+			}
+			System.out.println("All the available customer details would be displayed successfully...");
+		}
+		else
+		{
+			System.out.println("Oops! There is no customer is available now....");
+		}
+	}
+
+
+
+	public void changeMovie(Movie movie)
+	{
+		if(Database.screenList.size()!=0)
+		{
+			ScreenController screenController=new ScreenController();
+			for(Screen screen:Database.screenList)
+			{
+				if(screen.screenName.equals(movie.screenName))
+				{
+					Map<String,Movie>mp=screen.details;
+					MovieController movieController=new MovieController();
+					String key=movieController.printKey(movie);
+					Database.movieList.add(movie);
+					mp.put(key,movie);
+					System.out.println("Screen updated succesfully...");
+				}
+			}
+		}
+	}
+
+	public void assignMovie()
+	{
+		AdminController adminController=new AdminController();
+		String key=adminController.getKey();
+		String sName=adminController.getScreen();
+		int id=adminController.getId();
+		for(Movie m:Database.movieList)
+		{
+			if(m.movieId==id)
+			{
+				for(Screen screen:Database.screenList)
+				{
+					if(screen.screenName.equals(sName))
+					{
+						if(screen.details.get(key)==null)
+						{
+							screen.details.put(key,m);
+							System.out.println("Movie added successfully...");
+						}
+					}
+				}
+				
+			}
 		}
 	}
 

@@ -19,7 +19,7 @@ class Main
 	    boolean next=true;
 	    while(next)
 	    {
-		System.out.println("For Admin login -> 1 \nFor Customer Login -> 2 \nFor New User -> 3");
+		System.out.println("For Admin login -> 1 \nFor Customer Login -> 2 \nFor new User -> 3");
         	System.out.print("Enter your choice: ");
         	int choice = sc.nextInt();
         	sc.nextLine();
@@ -33,10 +33,10 @@ class Main
                 		CustomerController customerController=new CustomerController();
 				customerController.loginDetails();
                		 	break;
-            		case 3:
-                		UserController userController=new UserController();
-				userController.registerUser();
-                		break;
+			case 3:
+				CustomerController customerController2=new CustomerController();
+				customerController2.registerUser();
+				break;            		
             		default:
                 		System.out.println("Invalid choice!");
         	}

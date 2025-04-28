@@ -22,7 +22,7 @@ public class CustomerService
 		return false;
 	}
 
-	public void registerCustomer(Customer customer)
+	public void createCustomer(Customer customer)
 	{
 		Database.customerList.add(customer);
 		System.out.println("Customer registered successfully...");

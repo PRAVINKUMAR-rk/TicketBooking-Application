@@ -35,6 +35,7 @@ public class MovieController
 		
 	}
 
+
 	public void printMovieDetails(Movie movie)
 	{
 		System.out.println("The movie ID is           : "+movie.movieId);

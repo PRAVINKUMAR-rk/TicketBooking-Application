@@ -24,50 +24,43 @@ public class ScreenController
 		return new Screen(screenName,details);
 	}
 
-	public void printScreenDetails()
+	
+	public void printScreenDetails(Screen screen)
 	{
-		if(Database.screenList.size()!=0)
-		{
-			for(Screen screen:Database.screenList)
-			{
-				System.out.println("------------------------------------------------------------");
-				System.out.println("Name of the screen : "+screen.screenName);
+		System.out.println("------------------------------------------------------------");
+		System.out.println("Name of the screen : "+screen.screenName);
 
 			
-				for(Map.Entry<String,Movie>en:screen.details.entrySet())
-				{
-					String name=en.getKey();
-					Movie movie=en.getValue();
-					AdminService adminService=new AdminService();
+		for(Map.Entry<String,Movie>en:screen.details.entrySet())
+		{
+			String name=en.getKey();
+			Movie movie=en.getValue();
+			AdminService adminService=new AdminService();
 					
-					if(movie!=null)
-					{
-						boolean flag=adminService.checkMovie(movie.movieId);
-						if(flag)
-						{
-							System.out.println(name+" : "+movie.getTitle()+" ");
-						}
-						else
-						{
-							System.out.println(name+" : "+"No movie is assigned...");
-						}
-					}
-					else
-					{
-						System.out.println(name+" : "+"No movie is assigned...");
-					}	
+			if(movie!=null)
+			{
+				boolean flag=adminService.checkMovie(movie.movieId);
+				if(flag)
+				{
+					System.out.println(name+" : "+movie.getTitle()+" ");
 				}
-
-
-				System.out.println("------------------------------------------------------------");
-			
+				else
+				{
+					System.out.println(name+" : "+"No movie is assigned...");
+				}
 			}
+			else
+			{
+				System.out.println(name+" : "+"No movie is assigned...");
+			}	
 		}
-		else
-		{
-			System.out.println("Oops! There is no screen is available in theatre....");
-		}
+
+
+		System.out.println("------------------------------------------------------------");
+			
 	}
+
+	
 }
 
 
